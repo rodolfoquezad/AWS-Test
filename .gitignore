@@ -1,5 +1,3 @@
-modules/maquina_virtual/.terraform.lock.hcl
-modules/maquina_virtual/terraform.tfstate
-modules/maquina_virtual/terraform.tfstate.backup
-modules/maquina_virtual/.terraform
-*.sh
+terraform.*
+.terraform.*
+.terraform
