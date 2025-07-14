@@ -18,6 +18,9 @@ module "ec2" {
   vpc_id           = data.aws_vpc.default.id
   subnet_id        = data.aws_subnets.redes.ids[0]
   nombre_instancia = "servidor_linux"
+  bash_inicio = templatefile("modulos/maquina_virtual/bash_inicio.sh", {
+    db_host = module.rds.db_endpoint
+  })
 }
 
 module "rds" {
@@ -28,4 +31,5 @@ module "rds" {
   subnet_ids            = data.aws_subnets.redes.ids
   usuario_db            = var.usuario_db
   usuario_pass          = var.usuario_pass
+
 }

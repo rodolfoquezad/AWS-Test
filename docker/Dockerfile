@@ -2,6 +2,9 @@ FROM ubuntu:22.04
 
 #Instalacion de herramientas solicitadas
 
+ENV DEBIAN_FRONTEND=noninteractive
+RUN ln -fs /usr/share/zoneinfo/America/Mexico_City /etc/localtime
+
 RUN apt-get update && apt-get install -y \
     maven \
     git \
@@ -11,6 +14,10 @@ RUN apt-get update && apt-get install -y \
     openjdk-21-jdk \
     postgresql-client \
     dotnet-sdk-6.0 \
+    libpq-dev \
+    php \
+    php-pgsql \         
+    php-common \         
     && rm -rf /var/lib/apt/lists/*
 
 #Instalacion de VS code server
@@ -22,7 +29,7 @@ RUN wget https://github.com/coder/code-server/releases/download/v4.101.2/code-se
 
 #Configuracion de apache
 
-COPY html/index.html /var/www/html
+COPY html/index.php /var/www/html
 RUN chown -R www-data:www-data /var/www/html \
     && a2enmod rewrite \
     && service apache2 restart
